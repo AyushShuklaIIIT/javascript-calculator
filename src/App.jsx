@@ -68,14 +68,7 @@ function App() {
       evaluateFormula();
     }
 
-    else if(formula[formula.length - 1] == ')' && character == '(') {
-      setFormula(prevFormula => {
-        prevFormula = prevFormula + '*' + character;
-        return prevFormula;
-      })
-    }
-
-    else if (formula.length >= 1 && isOperator(formula[formula.length - 1]) && isOperator(character)) {
+    else if (formula.length >= 1 && ((isOperator(formula[formula.length - 1]) && isOperator(character)) || formula[formula.length - 1] === '.' && character === '.')) {
       setFormula(prevFormula => {
         prevFormula = prevFormula.slice(0, -1);
         return prevFormula + character;
