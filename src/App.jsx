@@ -125,7 +125,7 @@ function App() {
 
   return (
     <calculatorContext.Provider value={contextValue}>
-      <div className='w-[440px] shadow/75 bg-[#0f1417] rounded-2xl'>
+      <div className='w-[440px] shadow/75 bg-[#0f1417] rounded-2xl scale-75 md:scale-100'>
         <Display></Display>
         <Keys></Keys>
       </div>
