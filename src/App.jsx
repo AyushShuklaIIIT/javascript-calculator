@@ -2,7 +2,7 @@ import Display from './Components/Display.jsx'
 import Keys from './Components/Keys.jsx'
 // eslint-disable-next-line no-unused-vars
 import { calculatorContext } from './JS/contexts.js'
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo, useEffect } from 'react'
 import { evaluate } from 'mathjs'
 
 function App() {
@@ -92,6 +92,34 @@ function App() {
       });
     }
   }, [formula, handleBrackets, isOperator, evaluateFormula]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      const key = event.key;
+      if(key === 'Enter') {
+        handleClick('=');
+      }
+      else if(key === 'Backspace') {
+        handleClick('back');
+      }
+      else if(key === 'Escape') {
+        handleClick('AC');
+      }
+      else if(key === '(' || key === ')') {
+        handleClick('( )');
+      }
+      else if(/[0-9+\-*/%.]/.test(key)) {
+        handleClick(key);
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+  
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [handleClick])
+  
 
   const contextValue = useMemo(() => ({ handleClick, formula }), [handleClick, formula]);
 
